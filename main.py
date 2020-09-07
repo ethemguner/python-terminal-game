@@ -87,6 +87,9 @@ character_name = input("Choose a name to your mighty adventure: ")
 place = Place(location_id=1)
 character = Character(name=character_name, location=place.location)
 print("\n")
+
+# these should not be here, but I added them to tests. When I
+# write the looting system, they'll be removed.
 sword = SwordOfMountains()
 armor = ArmorOfMountains()
 dagger = DaggerOfMountains()
