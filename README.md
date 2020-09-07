@@ -5,18 +5,18 @@ This is how I relax myself.
 This "game" has no any visual thing. It's more like a consol game =)
 
 # Current targets:
--> At least 10 monsters, 5 places, 15 items
--> Looting/chance system.
--> More dynamic menu.
--> Balanced fights.
+- At least 10 monsters, 5 places, 15 items
+- Looting/chance system.
+- More dynamic menu.
+- Balanced fights.
 
 # Next targets:
--> Upgrading system.
--> Neat skill system.
--> Threading implementation. (If I need.)
+- Upgrading system.
+- Neat skill system.
+- Threading implementation. (If I need.)
 
 # Very next targets:
--> Story!!
+- Story!!
 
 # More notes:
 Currently, I'm working on it in my free time (I have no very much free time though). 
