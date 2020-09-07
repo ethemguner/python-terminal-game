@@ -1,0 +1,13 @@
+
+9
+	places.py,8\f\8f4a2d845c13e29faedad24bccc6c2196fe68593
+<
+character.py,7\c\7c588d8c397ec50f422b2aa6d4992d2996abf23d
+8
+items.py,e\c\ec2b770d1849201453ada1f13c6976935f1460ad
+;
+monsters.py,3\3\33eb8c5dc45a41eb1dbc69579cc260ea557ea491
+9
+	skills.py,8\1\8171c0f805a563600f41ad7ce6085080229ca691
+7
+main.py,f\1\f1bdda93d9a278e358509d498e17d97764c1fb29
