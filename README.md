@@ -5,9 +5,9 @@ This is how I relax myself.
 This "game" has no any visual thing. It's more like a consol game =)
 
 # Current targets:
-- At least 10 monsters, 5 places, 15 items
-- Looting/chance system.
-- More dynamic menu.
+- At least 10 monsters (Done), 5 places (Done), 15 items
+- Looting/chance system. (money system)
+- More dynamic menu. (%63.4 done)
 - Balanced fights.
 
 # Next targets:

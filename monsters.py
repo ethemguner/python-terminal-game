@@ -4,9 +4,9 @@ from places import Place
 
 class Monster(object):
     MONSTER_NAME = None
-    MONSTER_DAMAGE = None
-    MONSTER_HEALTH = None
-    MONSTER_DEFENCE = None
+    MONSTER_DAMAGE = 1.44
+    MONSTER_HEALTH = 1.7
+    MONSTER_DEFENCE = 1.6
     EXTRA_DAMAGE_CHANCE = None
     BLOCK_CHANCE = None
     MONSTER_LEVEL = None
@@ -33,18 +33,23 @@ class Monster(object):
         return block
 
     def summon_monsters(self, location_id):
+        from colorama import Fore, Style, init
+        # If you're on Linux, init is unnecessary.
+        init()
         location = Place(location_id=location_id).location
         for monster in MONSTERS:
             if monster.LOCATION == location:
-                print(f"{monster.MONSTER_NAME} is living in {location}. Monster ID: [{monster.MONSTER_ID}]")
+                print(f"{Fore.RED}{monster.MONSTER_NAME}{Style.RESET_ALL} is living "
+                      f"in {Fore.YELLOW}{location}.{Style.RESET_ALL} "
+                      f"Monster ID: {Fore.GREEN}[{monster.MONSTER_ID}]{Style.RESET_ALL}")
 
 
 class Worm(Monster):
     def __init__(self):
         self.MONSTER_NAME = "Worm"
-        self.MONSTER_DAMAGE = 1.44
-        self.MONSTER_HEALTH = 10
-        self.MONSTER_DEFENCE = 0.88
+        self.MONSTER_DAMAGE += 1.44
+        self.MONSTER_HEALTH += 10
+        self.MONSTER_DEFENCE += 0.88
         self.EXTRA_DAMAGE_CHANCE = 5
         self.BLOCK_CHANCE = 3
         self.EXPERIENCE = 0.44
@@ -56,9 +61,9 @@ class Worm(Monster):
 class Guba(Monster):
     def __init__(self):
         self.MONSTER_NAME = "Guba"
-        self.MONSTER_DAMAGE = 3.74
-        self.MONSTER_HEALTH = 18.75
-        self.MONSTER_DEFENCE = 1.85
+        self.MONSTER_DAMAGE += 3.74
+        self.MONSTER_HEALTH += 18.75
+        self.MONSTER_DEFENCE += 1.85
         self.EXTRA_DAMAGE_CHANCE = 10
         self.BLOCK_CHANCE = 8
         self.EXPERIENCE = 1.89
@@ -67,7 +72,127 @@ class Guba(Monster):
         self.MONSTER_ID = 2
 
 
+class Toly(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Toly"
+        self.MONSTER_DAMAGE += 4.86
+        self.MONSTER_HEALTH += 23.87
+        self.MONSTER_DEFENCE += 2.67
+        self.EXTRA_DAMAGE_CHANCE = 13
+        self.BLOCK_CHANCE = 10
+        self.EXPERIENCE = 2.74
+        self.MONSTER_LEVEL = 3
+        self.LOCATION = Place(location_id=2).location # change location
+        self.MONSTER_ID = 3
+
+
+class Mox(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Mox"
+        self.MONSTER_DAMAGE += 1.79
+        self.MONSTER_HEALTH += 30.47
+        self.MONSTER_DEFENCE += 4
+        self.EXTRA_DAMAGE_CHANCE = 4
+        self.BLOCK_CHANCE = 7
+        self.EXPERIENCE = 3.5
+        self.MONSTER_LEVEL = 4
+        self.LOCATION = Place(location_id=2).location # change location
+        self.MONSTER_ID = 4
+
+
+class Phyle(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Phyle"
+        self.MONSTER_DAMAGE += 5.33
+        self.MONSTER_HEALTH += 25
+        self.MONSTER_DEFENCE += 3.41
+        self.EXTRA_DAMAGE_CHANCE = 14
+        self.BLOCK_CHANCE = 14
+        self.EXPERIENCE = 4.22
+        self.MONSTER_LEVEL = 5
+        self.LOCATION = Place(location_id=2).location # change location
+        self.MONSTER_ID = 5
+
+
+class Otxer(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Otxer"
+        self.MONSTER_DAMAGE += 7
+        self.MONSTER_HEALTH += 35
+        self.MONSTER_DEFENCE += 5
+        self.EXTRA_DAMAGE_CHANCE = 20
+        self.BLOCK_CHANCE = 20
+        self.EXPERIENCE = 7.5
+        self.MONSTER_LEVEL = 6
+        self.LOCATION = Place(location_id=3).location # change location
+        self.MONSTER_ID = 6
+
+
+class Jav(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Jav"
+        self.MONSTER_DAMAGE += 7.88
+        self.MONSTER_HEALTH += 38.97
+        self.MONSTER_DEFENCE += 5
+        self.EXTRA_DAMAGE_CHANCE = 15
+        self.BLOCK_CHANCE = 15
+        self.EXPERIENCE = 8.24
+        self.MONSTER_LEVEL = 7
+        self.LOCATION = Place(location_id=3).location # change location
+        self.MONSTER_ID = 7
+
+
+class Rayl(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Rayl"
+        self.MONSTER_DAMAGE += 8.78
+        self.MONSTER_HEALTH += 42
+        self.MONSTER_DEFENCE += 5.80
+        self.EXTRA_DAMAGE_CHANCE = 20
+        self.BLOCK_CHANCE = 20
+        self.EXPERIENCE = 10
+        self.MONSTER_LEVEL = 8
+        self.LOCATION = Place(location_id=3).location # change location
+        self.MONSTER_ID = 8
+
+
+class Haxy(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Haxy"
+        self.MONSTER_DAMAGE += 9.75
+        self.MONSTER_HEALTH += 45
+        self.MONSTER_DEFENCE += 6.33
+        self.EXTRA_DAMAGE_CHANCE = 25
+        self.BLOCK_CHANCE = 25
+        self.EXPERIENCE = 13
+        self.MONSTER_LEVEL = 9
+        self.LOCATION = Place(location_id=4).location # change location
+        self.MONSTER_ID = 9
+
+
+class Felankor(Monster):
+    def __init__(self):
+        self.MONSTER_NAME = "Felankor"
+        self.MONSTER_DAMAGE += 13.74
+        self.MONSTER_HEALTH += 55
+        self.MONSTER_DEFENCE += 8
+        self.EXTRA_DAMAGE_CHANCE = 50
+        self.BLOCK_CHANCE = 50
+        self.EXPERIENCE = 21
+        self.MONSTER_LEVEL = 10
+        self.LOCATION = Place(location_id=5).location  # change location
+        self.MONSTER_ID = 10
+
+
 MONSTERS = [
     Worm(),
-    Guba()
+    Guba(),
+    Toly(),
+    Mox(),
+    Phyle(),
+    Otxer(),
+    Jav(),
+    Rayl(),
+    Haxy(),
+    Felankor()
 ]

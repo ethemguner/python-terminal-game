@@ -7,9 +7,9 @@ class Character(object):
     CURRENT_LOCATION = None
     WEAPON = None
     ARMOR = None
-    STRENGTH = 10
-    HEALTH = 50
-    DEFENCE = 5
+    STRENGTH = 3
+    HEALTH = 35
+    DEFENCE = 2
     EXPERIENCE = 0
     INVENTORY = []
     WEAPON_EQUIPPED = False
@@ -74,16 +74,26 @@ class Character(object):
     def get_skill_damage(self, skill):
         return 0
 
+    def chance_location(self, location):
+        if self.CURRENT_LEVEL >= location.MINIMUM_LEVEL:
+            self.CURRENT_LOCATION = location.NAME
+            print(f"\nYou traveled to {self.CURRENT_LOCATION}.\n")
+            return True
+        else:
+            print(f"\n########## You cannot travel to this place. "
+                  f"It requires minimum {location.MINIMUM_LEVEL} level. ##########\n")
+            return False
+
     def attack(self, skill=None):
         items_extra_damage = self.get_items_extra_damage()
         skill_total_damage = self.get_skill_damage(skill)
-        extra_damage = (self.STRENGTH / 100) * random.randint(1, 10)
+        extra_damage = (self.STRENGTH / 100) * random.randint(1, 5)
         total_damage = (self.STRENGTH + skill_total_damage +
                         extra_damage + items_extra_damage) * (self.CURRENT_LEVEL / 10)
         return total_damage
 
     def defence(self, taken_damage):
-        defenced_damage = (taken_damage / 100) * self.DEFENCE + (self.CURRENT_LEVEL * 0.77)
+        defenced_damage = (taken_damage / 100) * self.DEFENCE
         return defenced_damage
 
     def set_item(self, item):

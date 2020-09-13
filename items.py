@@ -18,9 +18,9 @@ class Item(object):
 
 class SwordOfMountains(Item):
     def __init__(self):
-        self.DAMAGE = 8.54
+        self.DAMAGE = 2.78
         self.DEFENCE = 0.33
-        self.EXTRA_DAMAGE = 1.56
+        self.EXTRA_DAMAGE = 0.78
         self.NAME = "Sword of Mountains"
         self.REQUIRED_LEVEL = 1
         self.TYPE = "WEAPON"
@@ -31,8 +31,8 @@ class SwordOfMountains(Item):
 class ArmorOfMountains(Item):
     def __init__(self):
         self.DAMAGE = 0
-        self.DEFENCE = 4.22
-        self.EXTRA_DAMAGE = 0.33
+        self.DEFENCE = 3.14
+        self.EXTRA_DAMAGE = 0.12
         self.NAME = "Armor of Mountains"
         self.REQUIRED_LEVEL = 1
         self.TYPE = "ARMOR"
@@ -42,9 +42,9 @@ class ArmorOfMountains(Item):
 
 class DaggerOfMountains(Item):
     def __init__(self):
-        self.DAMAGE = 10
-        self.DEFENCE = 0.24
-        self.EXTRA_DAMAGE = 1.12
+        self.DAMAGE = 4
+        self.DEFENCE = 0
+        self.EXTRA_DAMAGE = 0.89
         self.NAME = "Dagger of Mountains"
         self.REQUIRED_LEVEL = 1
         self.TYPE = "WEAPON"
