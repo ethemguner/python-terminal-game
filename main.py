@@ -4,28 +4,30 @@ from monsters import Worm, Monster, MONSTERS
 from items import SwordOfMountains, ArmorOfMountains, DaggerOfMountains
 import time
 from colorama import Fore, Style, init
+from messages import Message
 
 # If you're on Linux, init is unnecessary.
 init()
 
+
 def fight(character, monster):
-    print(f"\n{character.NAME} vs. {monster.MONSTER_NAME} has begun!\n")
+    message = Message(character, monster)
+    message.fight_begin_message()
     time.sleep(1)
     character_hp = character.HEALTH
     monster_hp = monster.MONSTER_HEALTH
     round_ = 1
     while character_hp > 0 and monster_hp > 0:
-        print(f"{Fore.BLUE}------------------------ROUND {round_}------------------------{Style.RESET_ALL}")
-        print(f"{Fore.GREEN}###### {character.NAME} IS ATTACKING ######{Style.RESET_ALL}")
+        message.round_title(round_)
+        message.character_attacking_message()
         character_total_damage = character.attack() - monster.defence(character.attack())
         monster_hp -= 0 if monster.block_next_attack() else character_total_damage
         if monster.block_next_attack():
-            print(f"{Fore.RED}{character.NAME}'s attack "
-                  f"has been blocked by {monster.MONSTER_NAME}{Style.RESET_ALL}!")
+            message.monsters_block_message()
         else:
-            print(f"Dealt {character_total_damage} damage to {monster.MONSTER_NAME}")
+            message.character_damage_message(character_total_damage)
 
-        print(f"{monster.MONSTER_NAME} HP: ", monster_hp)
+        message.current_monster_hp(monster_hp)
 
         if monster_hp < 0:
             total_taken_damage = character.HEALTH - character_hp
@@ -33,17 +35,17 @@ def fight(character, monster):
             return True, round_
 
         print(f"\n{Fore.YELLOW}Attack will come from monster now...{Style.RESET_ALL}\n")
+
         time.sleep(2)
-        print(f"{Fore.RED}#### {monster.MONSTER_NAME} IS ATTACKING ####{Style.RESET_ALL}")
+        message.monster_attacking_message()
         monster_total_damage = monster.attack() - character.defence(monster.attack())
         if monster_total_damage < 0:
-            print(f"{Fore.GREEN}{monster.MONSTER_NAME} couldn't make any damage to "
-                  f"{character.NAME}...{Style.RESET_ALL}")
+            message.characters_block_message()
         else:
             character_hp -= monster_total_damage
-            print(f"{monster.MONSTER_NAME} hit {monster_total_damage} damage to {character.NAME}!")
+            message.monster_damage_message(monster_total_damage)
 
-        print(f"{character.NAME} HP: ", character_hp)
+        message.current_character_hp(character_hp)
 
         if character_hp < 0:
             character.HEALTH = 0
@@ -57,12 +59,13 @@ def fight(character, monster):
 
 
 def inventory(character):
+    message = Message(character=character)
     item_detail = True
     print("\n")
     while item_detail:
         for i, item in enumerate(character.INVENTORY):
             equipped = item.EQUIPPED
-            print(f"{i} -> {item.NAME} |", "Equipped." if equipped else "Not Equipped.")
+            message.items_in_inventory(i, item.NAME, equipped)
 
         print("If you want to equip an item, write: equip <number of item>")
         item_detail = input("To see details, write number of that item (to go menu enter q): ")
@@ -91,7 +94,7 @@ def inventory(character):
 character_name = input("Choose a name to your mighty adventure: ")
 place = Place(location_id=1)
 character = Character(name=character_name, location=place.location)
-character.CURRENT_LEVEL = 10
+# character.CURRENT_LEVEL = 10
 print("\n")
 
 # these should not be here, but I added them to tests. When I
@@ -104,19 +107,14 @@ print("\n")
 # character.equipped_item(dagger)
 
 while True:
-    living = character.HEALTH if character.HEALTH > 0 else "You're so fucking dead."
-    print(f"\n{Fore.GREEN}{character}{Style.RESET_ALL}, "
-          f"your are in {Fore.YELLOW}{character.CURRENT_LOCATION}{Style.RESET_ALL} now.")
-    print(f"{Fore.BLUE}LEVEL: {character.CURRENT_LEVEL} | EXPERIENCE: {character.EXPERIENCE}{Style.RESET_ALL}")
-    print(f"{Fore.BLUE}HP: {living} | STRENGTH: {character.STRENGTH} | DEFENCE: {character.DEFENCE}{Style.RESET_ALL}")
-    print("\n")
-    print(f"{Fore.GREEN}1 ->{Style.RESET_ALL} Open the map. Currently, you are in {character.CURRENT_LOCATION}.")
-    print(f"{Fore.GREEN}2 ->{Style.RESET_ALL} Open the inventory.")
-    print(f"{Fore.GREEN}3 ->{Style.RESET_ALL} Open the skill menu.")
-    print("\n")
+    message = Message(character)
+    message.menu_and_character_summary()
     action = int(input("Please choose an action: "))
 
     if action == 1:
+        # To fight, you have to travel ( ^_^ )
+        # Where will you travel? To bad lands ( ~_~ )
+        # What will you see? Monsters |_ O_O _|
         travel = True
         while travel:
             place = Place()
@@ -151,13 +149,10 @@ while True:
                             chosen_monster = m
                     won, round_ = fight(character=character, monster=chosen_monster)
                     if won:
-                        print(f"\n{Fore.GREEN}{character.NAME} has won in {round_} round!!{Style.RESET_ALL}")
-                        print("\n")
+                        message.character_win_message(round_)
                         character.gain_experience(chosen_monster.EXPERIENCE)
                     else:
-                        print(f"\n{Fore.RED}{character.NAME} has lost against "
-                              f"{chosen_monster.MONSTER_NAME} in {round_} round...{Style.RESET_ALL}")
-                        print("\n")
+                        message.character_lost_message(round_)
 
     elif action == 2:
         inventory(character)

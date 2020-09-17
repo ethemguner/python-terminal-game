@@ -1,4 +1,5 @@
 import random
+from messages import Message
 
 
 class Character(object):
@@ -33,6 +34,7 @@ class Character(object):
         self.CURRENT_LOCATION = location
         self.WEAPON = weapon
         self.ARMOR = armor
+        self.message = Message(character=self)
 
     def __str__(self):
         return self.NAME
@@ -48,9 +50,7 @@ class Character(object):
         except KeyError:
             return print("You have reached the maximum level!")
 
-        return print(f"{self.NAME}, YOU LEVELED UP TO {self.CURRENT_LEVEL}! "
-                     f"Next level ({self.CURRENT_LEVEL + 1}) requires {next_level_experience} experience. "
-                     f"You have {self.EXPERIENCE} experience.")
+        return self.message.level_up(next_level_experience)
 
     def gain_experience(self, experience):
         if self.CURRENT_LEVEL == 10:
@@ -77,11 +77,10 @@ class Character(object):
     def chance_location(self, location):
         if self.CURRENT_LEVEL >= location.MINIMUM_LEVEL:
             self.CURRENT_LOCATION = location.NAME
-            print(f"\nYou traveled to {self.CURRENT_LOCATION}.\n")
+            self.message.traveling_message()
             return True
         else:
-            print(f"\n########## You cannot travel to this place. "
-                  f"It requires minimum {location.MINIMUM_LEVEL} level. ##########\n")
+            self.message.traveling_warning(location.MINIMUM_LEVEL)
             return False
 
     def attack(self, skill=None):
@@ -108,11 +107,11 @@ class Character(object):
         if item.TYPE == "WEAPON":
             self.WEAPON = item
             self.WEAPON.EQUIPPED = True
-            print(f"You equipped {self.WEAPON.NAME}.")
+            self.message.equipped_item(self.WEAPON.NAME)
         elif item.TYPE == "ARMOR":
             self.ARMOR = item
             self.ARMOR.EQUIPPED = True
-            print(f"You equipped {self.ARMOR.NAME}.")
+            self.message.equipped_item(self.ARMOR.NAME)
 
         self.add_item_to_inventory(item)
 
@@ -124,23 +123,21 @@ class Character(object):
         defence_diff = self.DEFENCE - old_defence
 
         if self.STRENGTH > old_strength:
-            print(f"Your strength increased +{strength_diff}! "
-                  f"Your current strength is {self.STRENGTH}.")
+            self.message.strength_increased(strength_diff)
 
         if self.DEFENCE > old_defence:
-            print(f"Your defence increased +{defence_diff}! "
-                  f"Your current defence is {self.DEFENCE}.")
+            self.message.defence_increased(defence_diff)
 
     def equipped_item(self, item):
         if self.CURRENT_LEVEL < item.REQUIRED_LEVEL:
-            print(f"You cannot equip {item.NAME}. It requires {item.REQUIRED_LEVEL} level.")
+            self.message.cannot_equip_item(item.NAME, item.REQUIRED_LEVEL)
         else:
             self.set_item(item)
 
     def add_item_to_inventory(self, item):
         if item not in self.INVENTORY:
             self.INVENTORY.append(item)
-            print(f"{item.NAME} added to your inventory.")
+            self.message.item_added(item.NAME)
 
     def unequipped_item(self, item_type):
         if item_type == "WEAPON" and self.WEAPON:
@@ -159,7 +156,7 @@ class Character(object):
         self.STRENGTH -= item.DAMAGE
         self.DEFENCE -= item.DEFENCE
 
-        print(f"{item.NAME} unequipped!")
+        self.message.unequipped_item(item.NAME)
         if item_type == "WEAPON":
             self.WEAPON = None
         elif item_type == "ARMOR":
@@ -167,13 +164,11 @@ class Character(object):
 
         if old_strength > self.STRENGTH:
             strength_diff = old_strength - self.STRENGTH
-            print(f"Your strength decreased {strength_diff}. "
-                  f"Now your strength is {self.STRENGTH}")
+            self.message.strength_decreased(strength_diff)
 
         if old_defence > self.DEFENCE:
             defence_diff = old_defence - self.DEFENCE
-            print(f"Your defence decreased {defence_diff}. "
-                  f"Now your defence is {self.DEFENCE}")
+            self.message.defence_decreased(defence_diff)
 
 # from places import Place
 # from items import SwordOfMountains, ArmorOfMountains, DaggerOfMountains
