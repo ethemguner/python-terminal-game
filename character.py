@@ -8,13 +8,14 @@ class Character(object):
     CURRENT_LOCATION = None
     WEAPON = None
     ARMOR = None
-    STRENGTH = 3
+    STRENGTH = 12
     HEALTH = 35
-    DEFENCE = 2
+    DEFENCE = 2.4
     EXPERIENCE = 0
     INVENTORY = []
     WEAPON_EQUIPPED = False
     ARMOR_EQUIPPED = False
+    TOTAL_PCASH = 0
     LEVELS_AND_EXPERIENCES = {
         1: 10,
         2: 16,
@@ -52,12 +53,15 @@ class Character(object):
 
         return self.message.level_up(next_level_experience)
 
-    def gain_experience(self, experience):
+    def gain_experience_and_pcash(self, experience, pcash_amount):
         if self.CURRENT_LEVEL == 10:
             return
 
         self.EXPERIENCE += experience
-        print(f"You gained {experience} experience.")
+        self.message.gained_experience(experience)
+
+        self.TOTAL_PCASH += pcash_amount
+        self.message.gained_pcash(pcash_amount)
 
         if self.EXPERIENCE >= self.get_next_level_experience():
             self.level_up()

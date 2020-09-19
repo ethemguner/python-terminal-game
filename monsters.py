@@ -1,6 +1,6 @@
 import random
 from places import Place
-
+from money import PCash
 
 class Monster(object):
     MONSTER_NAME = None
@@ -56,6 +56,7 @@ class Worm(Monster):
         self.MONSTER_LEVEL = 1
         self.LOCATION = Place(location_id=1).location
         self.MONSTER_ID = 1
+        self.PCash = PCash(2)
 
 
 class Guba(Monster):
@@ -70,6 +71,7 @@ class Guba(Monster):
         self.MONSTER_LEVEL = 2
         self.LOCATION = Place(location_id=1).location
         self.MONSTER_ID = 2
+        self.PCash = PCash(7)
 
 
 class Toly(Monster):
@@ -84,6 +86,7 @@ class Toly(Monster):
         self.MONSTER_LEVEL = 3
         self.LOCATION = Place(location_id=2).location # change location
         self.MONSTER_ID = 3
+        self.PCash = PCash(14)
 
 
 class Mox(Monster):
@@ -98,6 +101,7 @@ class Mox(Monster):
         self.MONSTER_LEVEL = 4
         self.LOCATION = Place(location_id=2).location # change location
         self.MONSTER_ID = 4
+        self.PCash = PCash(28)
 
 
 class Phyle(Monster):
@@ -112,6 +116,7 @@ class Phyle(Monster):
         self.MONSTER_LEVEL = 5
         self.LOCATION = Place(location_id=2).location # change location
         self.MONSTER_ID = 5
+        self.PCash = PCash(42)
 
 
 class Otxer(Monster):
@@ -126,6 +131,7 @@ class Otxer(Monster):
         self.MONSTER_LEVEL = 6
         self.LOCATION = Place(location_id=3).location # change location
         self.MONSTER_ID = 6
+        self.PCash = PCash(85)
 
 
 class Jav(Monster):
@@ -140,6 +146,7 @@ class Jav(Monster):
         self.MONSTER_LEVEL = 7
         self.LOCATION = Place(location_id=3).location # change location
         self.MONSTER_ID = 7
+        self.PCash = PCash(135)
 
 
 class Rayl(Monster):
@@ -154,6 +161,7 @@ class Rayl(Monster):
         self.MONSTER_LEVEL = 8
         self.LOCATION = Place(location_id=3).location # change location
         self.MONSTER_ID = 8
+        self.PCash = PCash(189)
 
 
 class Haxy(Monster):
@@ -168,6 +176,7 @@ class Haxy(Monster):
         self.MONSTER_LEVEL = 9
         self.LOCATION = Place(location_id=4).location # change location
         self.MONSTER_ID = 9
+        self.PCash = PCash(300)
 
 
 class Felankor(Monster):
@@ -182,6 +191,7 @@ class Felankor(Monster):
         self.MONSTER_LEVEL = 10
         self.LOCATION = Place(location_id=5).location  # change location
         self.MONSTER_ID = 10
+        self.PCash = PCash(500)
 
 
 MONSTERS = [
@@ -196,3 +206,4 @@ MONSTERS = [
     Haxy(),
     Felankor()
 ]
+

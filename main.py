@@ -150,7 +150,8 @@ while True:
                     won, round_ = fight(character=character, monster=chosen_monster)
                     if won:
                         message.character_win_message(round_)
-                        character.gain_experience(chosen_monster.EXPERIENCE)
+                        character.gain_experience_and_pcash(chosen_monster.EXPERIENCE,
+                                                            chosen_monster.PCash.amount)
                     else:
                         message.character_lost_message(round_)
 

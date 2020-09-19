@@ -113,3 +113,10 @@ class Message:
 
     def equipped_item(self, item_name):
         print(f"\n{Fore.GREEN}You equipped {item_name}.{Style.RESET_ALL}")
+
+    def gained_experience(self, experience):
+        print(f"You gained {Fore.GREEN}{experience}{Style.RESET_ALL} experience.")
+
+    def gained_pcash(self, pcash_amount):
+        print(f"You gained {Fore.CYAN}{pcash_amount}{Style.RESET_ALL} PCash.")
+
