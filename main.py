@@ -5,6 +5,7 @@ from items import SwordOfMountains, ArmorOfMountains, DaggerOfMountains
 import time
 from colorama import Fore, Style, init
 from messages import Message
+from skills import Skill, BasicAttack, HeavyAttack
 
 # If you're on Linux, init is unnecessary.
 init()
@@ -17,11 +18,14 @@ def fight(character, monster):
     character_hp = character.HEALTH
     monster_hp = monster.MONSTER_HEALTH
     round_ = 1
+
     while character_hp > 0 and monster_hp > 0:
         message.round_title(round_)
         message.character_attacking_message()
-        character_total_damage = character.attack() - monster.defence(character.attack())
+        character_attack = character.attack(skill=BASE_SKILL)
+        character_total_damage = character_attack - monster.defence(character_attack)
         monster_hp -= 0 if monster.block_next_attack() else character_total_damage
+
         if monster.block_next_attack():
             message.monsters_block_message()
         else:
@@ -53,8 +57,9 @@ def fight(character, monster):
 
         round_ += 1
         print(f"{Fore.YELLOW}\nRound ended, next round will start...{Style.RESET_ALL}")
-        time.sleep(3)
+        time.sleep(4)
         print("\n")
+
     return won, round_
 
 
@@ -67,7 +72,11 @@ def inventory(character):
             equipped = item.EQUIPPED
             message.items_in_inventory(i, item.NAME, equipped)
 
-        print("If you want to equip an item, write: equip <number of item>")
+        if not character.INVENTORY:
+            print("You do not have any item to equip in your inventory now (to go menu enter q): ")
+        else:
+            print("If you want to equip an item, write: equip <number of item>")
+
         item_detail = input("To see details, write number of that item (to go menu enter q): ")
         print("\n")
         for i, item in enumerate(character.INVENTORY):
@@ -94,6 +103,7 @@ def inventory(character):
 character_name = input("Choose a name to your mighty adventure: ")
 place = Place(location_id=1)
 character = Character(name=character_name, location=place.location)
+BASE_SKILL = Skill()
 # character.CURRENT_LEVEL = 10
 print("\n")
 
@@ -147,6 +157,7 @@ while True:
                     for m in MONSTERS:
                         if monster_id == m.MONSTER_ID:
                             chosen_monster = m
+                    message.monster = chosen_monster
                     won, round_ = fight(character=character, monster=chosen_monster)
                     if won:
                         message.character_win_message(round_)

@@ -120,3 +120,6 @@ class Message:
     def gained_pcash(self, pcash_amount):
         print(f"You gained {Fore.CYAN}{pcash_amount}{Style.RESET_ALL} PCash.")
 
+    def used_skill_message(self, skill):
+        print(f"{Fore.YELLOW}[SKILL] - {skill.name} in use.{Style.RESET_ALL}")
+

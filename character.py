@@ -1,5 +1,6 @@
 import random
 from messages import Message
+from skills import BasicAttack, HeavyAttack
 
 
 class Character(object):
@@ -8,8 +9,8 @@ class Character(object):
     CURRENT_LOCATION = None
     WEAPON = None
     ARMOR = None
-    STRENGTH = 12
-    HEALTH = 35
+    STRENGTH = 20
+    HEALTH = 25
     DEFENCE = 2.4
     EXPERIENCE = 0
     INVENTORY = []
@@ -17,16 +18,16 @@ class Character(object):
     ARMOR_EQUIPPED = False
     TOTAL_PCASH = 0
     LEVELS_AND_EXPERIENCES = {
-        1: 10,
-        2: 16,
-        3: 25,
-        4: 36,
-        5: 56,
-        6: 98,
-        7: 133,
-        8: 188,
-        9: 266,
-        10: 365,
+        1: 2,
+        2: 8,
+        3: 12,
+        4: 20,
+        5: 30,
+        6: 45,
+        7: 65,
+        8: 75,
+        9: 90,
+        10: 133,
     }
 
     def __init__(self, name, location=None,
@@ -75,8 +76,13 @@ class Character(object):
         armor_extra_damage = self.ARMOR.EXTRA_DAMAGE if self.ARMOR else 0
         return weapon_extra_damage + armor_extra_damage
 
-    def get_skill_damage(self, skill):
-        return 0
+    def get_base_skill_damage(self, skill):
+        chance_factor = random.randint(0, 100)
+        basic_attack = BasicAttack(skill, character_level=self.CURRENT_LEVEL)
+        heavy_attack = HeavyAttack(skill, character_level=self.CURRENT_LEVEL)
+        base_attack_skill = basic_attack if chance_factor <= 70 else heavy_attack
+        self.message.used_skill_message(base_attack_skill)
+        return base_attack_skill.damage
 
     def chance_location(self, location):
         if self.CURRENT_LEVEL >= location.MINIMUM_LEVEL:
@@ -89,7 +95,7 @@ class Character(object):
 
     def attack(self, skill=None):
         items_extra_damage = self.get_items_extra_damage()
-        skill_total_damage = self.get_skill_damage(skill)
+        skill_total_damage = self.get_base_skill_damage(skill)
         extra_damage = (self.STRENGTH / 100) * random.randint(1, 5)
         total_damage = (self.STRENGTH + skill_total_damage +
                         extra_damage + items_extra_damage) * (self.CURRENT_LEVEL / 10)
