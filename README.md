@@ -2,33 +2,24 @@
 This is how I relax myself.
 
 # Note
-This "game" has no any visual thing. It's more like a consol game =)
-I do not use kanban or anything else, I'll use README to tracking
-bugs and other things. Bugs will be named B1, B2, B3... =)
+This "game" has no any visual thing. It's more like a "terminal game".
 
 # Current targets:
 - At least 10 monsters (Done), 5 places (Done), 15 items
 - Looting/chance system. (money system)
 - More dynamic menu. (%76.7 done)
-- Balanced fights.
+- Balanced fights. (I think It's more balanced now.)
 
 # Next targets:
 - Upgrading system.
-- Neat skill system.
-- Threading implementation. (If I need.)
+- Neat skill system. (Started, and maybe It'll be not as neat as I think.)
+- Threading implementation. (If I need.) (Probably, I won't need it.)
 
 # Very next targets:
-- Story!!
+- Story!! (This is hard.)
 
 # More notes:
 Currently, I'm working on it in my free time (I have no very much free time though). 
 I'll develop it until I satisfied.
 
 Yes.
-
-# Bugs:
-B1:
-When you choose a place to travel and this place's requirement level
-is higher than your level, it'll change the location to Town but
-after that, If you type the monster ID in the unpermitted place,
-fight begins with that monster.
