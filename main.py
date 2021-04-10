@@ -163,6 +163,9 @@ while True:
                         message.character_win_message(round_)
                         character.gain_experience_and_pcash(chosen_monster.EXPERIENCE,
                                                             chosen_monster.PCash.amount)
+                        dropped_item = chosen_monster.drop_item()
+                        if dropped_item:
+                            character.add_item_to_inventory(dropped_item)
                     else:
                         message.character_lost_message(round_)
 
